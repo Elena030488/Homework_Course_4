@@ -10,6 +10,6 @@ id bigserial primary key,
 first_name text,
 age int,
 driver_licence bool,
-car_idbigserial,
+car_id bigserial,
 foreign key (car_id) references car(id)
 );
