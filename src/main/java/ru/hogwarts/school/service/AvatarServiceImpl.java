@@ -75,4 +75,10 @@ public class AvatarServiceImpl implements AvatarService{
     private Avatar findOrCreateAvatar(Long studentId) {
         return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
     }
+    @Override
+    public Collection<Avatar> getAvatars(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return avatarRepository.findAll(pageable).getContent();
+    }
+
 }
