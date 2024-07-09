@@ -9,4 +9,5 @@ import java.util.Collection;
 public interface AvatarService {
     void uploadAvatar(Long studentId, MultipartFile avatar) throws IOException;
     Avatar findAvatar(Long studentId);
+    Collection<Avatar> getAvatars(int page, int size);
 }
