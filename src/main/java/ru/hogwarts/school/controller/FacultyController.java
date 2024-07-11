@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.FacultyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("faculty")
@@ -19,6 +22,7 @@ public class FacultyController {
     public FacultyController(FacultyService service) {
         this.service = service;
     }
+
     @PostMapping
     @Operation(summary = "Создание факультета")
     public ResponseEntity<Faculty> create(@RequestBody Faculty faculty) {
@@ -74,4 +78,35 @@ public class FacultyController {
         Collection<Student> students = service.getStudents(facultyId);
         return ResponseEntity.ok(students);
     }
+    @GetMapping("longest-name")
+    @Operation(summary = "Получение самого длинного названия факультета")
+    public String findLongestName() {
+        return service.findLongestName();
+    }
+
+    @GetMapping("sumFormulaVar1")
+    @Operation(summary = "Получение результата вычисления по формуле вариант1")
+    public void getSumVar1() {
+        long start = System.currentTimeMillis();
+        int sum = Stream
+                .iterate(1, a -> a+1)
+                .limit(1_000_000)
+                .reduce(0, (a, b) -> a + b);
+        long finish = System.currentTimeMillis();
+        logger.info("Var 1 result: {} execution time: {}", sum, finish - start);
+    }
+
+    @GetMapping("sumFormulaVar2")
+    @Operation(summary = "Получение результата вычисления по формуле вариант2")
+    public void getSumVar2() {
+        long start = System.currentTimeMillis();
+        int sum = Stream
+                .iterate(1, a -> a+1)
+                .parallel()
+                .limit(1_000_000)
+                .reduce(0, (a, b) -> a + b);
+        long finish = System.currentTimeMillis();
+        logger.info("Var 2 result: {} execution time: {}", sum, finish - start);
+    }
+    private final Logger logger = LoggerFactory.getLogger(FacultyController.class);
 }
