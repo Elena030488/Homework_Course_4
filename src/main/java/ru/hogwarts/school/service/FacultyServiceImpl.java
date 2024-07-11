@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @Service
@@ -76,5 +77,14 @@ public class FacultyServiceImpl implements FacultyService {
     public Collection<Faculty> getAll() {
         logger.info("Was invoked method for get all faculties");
         return facultyRepository.findAll();
+    }
+
+    @Override
+    public String findLongestName() {
+        logger.info("Was invoked method for find longest faculty name");
+        return facultyRepository.findAll().stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparing(String::length))
+                .orElse("");
     }
 }
