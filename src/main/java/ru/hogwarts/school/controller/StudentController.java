@@ -95,5 +95,4 @@ public class StudentController {
     public Double getAvgAgeWithStream(){
         return service.getAvgAgeWithStream();
     }
-
 }

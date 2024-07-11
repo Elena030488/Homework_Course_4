@@ -82,16 +82,9 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public String findLongestName() {
         logger.info("Was invoked method for find longest faculty name");
-//return facultyRepository.findAll().stream()
-//.map(Faculty::getName)
-//.sorted((name1, name2) ->-1 * (name1.length() – name2.length()))
-//.toList()
-//.get(0);
-
         return facultyRepository.findAll().stream()
                 .map(Faculty::getName)
                 .max(Comparator.comparing(String::length))
                 .orElse("");
     }
-
 }
