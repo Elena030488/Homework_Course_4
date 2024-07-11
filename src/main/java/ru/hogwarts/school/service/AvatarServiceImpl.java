@@ -79,8 +79,11 @@ public class AvatarServiceImpl implements AvatarService{
     @Override
     public Avatar findAvatar(Long studentId) {
         logger.info("Was invoked method for get avatar");
-        //logger.error("There is not student with id = " + studentId);
-        return avatarRepository.findByStudentId(studentId).orElseThrow(EntityNotFoundException::new);
+        return avatarRepository.findById(studentId)
+                .orElseThrow(() -> {
+                    logger.error("There is not avatar with id = " + studentId);
+                    return new EntityNotFoundException();
+                });
     }
 
     private Avatar findOrCreateAvatar(Long studentId) {
@@ -93,5 +96,4 @@ public class AvatarServiceImpl implements AvatarService{
         Pageable pageable = PageRequest.of(page, size);
         return avatarRepository.findAll(pageable).getContent();
     }
-
 }

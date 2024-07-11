@@ -30,8 +30,11 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public Faculty get(Long id) {
         logger.info("Was invoked method for get faculty by id");
-        //logger.error("There is not faculty with id = " + id);
-        return facultyRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return facultyRepository.findById(id)
+                .orElseThrow(() -> {
+                    logger.error("There is not faculty with id = " + id);
+                    return new EntityNotFoundException();
+                });
     }
 
     @Override

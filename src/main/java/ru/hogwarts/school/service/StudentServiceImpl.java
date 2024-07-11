@@ -28,8 +28,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student get(Long id) {
         logger.info("Was invoked method for get student by id");
-        //logger.error("There is not student with id = " + id);
-        return studentRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return studentRepository.findById(id)
+                .orElseThrow(() -> {
+                    logger.error("There is not student with id = " + id);
+                    return new EntityNotFoundException();
+                });
     }
 
     @Override
