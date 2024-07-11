@@ -59,4 +59,8 @@ public class AvatarController {
             is.transferTo(os);
         }
     }
+    @GetMapping
+    public Collection<Avatar> getAll(@RequestParam int page, @RequestParam int size) {
+        return avatarService.getAvatars(page, size);
+    }
 }

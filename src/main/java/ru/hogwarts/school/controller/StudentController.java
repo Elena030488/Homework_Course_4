@@ -68,4 +68,19 @@ public class StudentController {
         Faculty faculty = service.getFacultyByStudent(studentId);
         return ResponseEntity.ok(faculty);
     }
+    @GetMapping("count")
+    @Operation(summary = "Получение количества всех студентов")
+    public int getCount(){
+        return service.getCount();
+    }
+    @GetMapping("avg-age")
+    @Operation(summary = "Получение среднего возраста студентов")
+    public double getAvgAge(){
+        return service.getAvgAge();
+    }
+    @GetMapping("get-last-five")
+    @Operation(summary = "Получение последних пяти студентов")
+    public Collection<Student> getLastFive(){
+        return service.getLastFive();
+    }
 }
