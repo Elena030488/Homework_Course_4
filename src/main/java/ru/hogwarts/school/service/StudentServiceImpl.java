@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -99,5 +100,47 @@ public class StudentServiceImpl implements StudentService {
                 .mapToDouble(Student::getAge)
                 .average()
                 .orElse(0);
+    }
+
+    @Override
+    public void printStudents() {
+        Collection<Student> student = studentRepository.findAll();
+        printStudent(((List<Student>) student).get(0));
+        printStudent(((List<Student>) student).get(1));
+        Thread thread1 = new Thread(() -> {
+            printStudent(((List<Student>) student).get(2));
+            printStudent(((List<Student>) student).get(3));
+        });
+        thread1.start();
+        Thread thread2 = new Thread(() -> {
+            printStudent(((List<Student>) student).get(4));
+            printStudent(((List<Student>) student).get(5));
+        });
+        thread2.start();
+    }
+
+    @Override
+    public void printStudentsSynch() {
+        Collection<Student> student = studentRepository.findAll();
+        printStudentSynch(((List<Student>) student).get(0));
+        printStudentSynch(((List<Student>) student).get(1));
+        Thread thread1 = new Thread(() -> {
+            printStudentSynch(((List<Student>) student).get(2));
+            printStudentSynch(((List<Student>) student).get(3));
+        });
+        thread1.start();
+        Thread thread2 = new Thread(() -> {
+            printStudentSynch(((List<Student>) student).get(4));
+            printStudentSynch(((List<Student>) student).get(5));
+        });
+        thread2.start();
+    }
+
+    private void printStudent(Student student) {
+        logger.info("Thread: {}. Student: {}", Thread.currentThread(), student);
+    }
+
+    private synchronized void printStudentSynch(Student student) {
+        printStudent(student);
     }
 }

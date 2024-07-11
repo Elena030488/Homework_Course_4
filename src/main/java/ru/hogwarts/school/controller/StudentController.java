@@ -94,4 +94,15 @@ public class StudentController {
     public Double getAvgAgeWithStream(){
         return service.getAvgAgeWithStream();
     }
+    @GetMapping("print-parallel")
+    @Operation(summary = "Вывод студентов в параллельном режиме")
+    public void printStudents() {
+        service.printStudents();
+    }
+
+    @GetMapping("print-synchronized")
+    @Operation(summary = "Вывод студентов в синхронном режиме")
+    public void printStudentsSynch() {
+        service.printStudentsSynch();
+    }
 }

@@ -18,4 +18,6 @@ public interface StudentService {
     int getCount();
     Collection<String> getStudentsNamesStartWithA();
     Double getAvgAgeWithStream();
+    void printStudents();
+    void printStudentsSynch();
 }
