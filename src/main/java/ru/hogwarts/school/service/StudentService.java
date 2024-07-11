@@ -16,6 +16,4 @@ public interface StudentService {
     Collection<Student> getLastFive();
     double getAvgAge();
     int getCount();
-    Collection<String> getStudentsNamesStartWithA();
-    Double getAvgAgeWithStream();
 }

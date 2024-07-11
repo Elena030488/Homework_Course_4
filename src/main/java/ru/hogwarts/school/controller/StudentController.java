@@ -83,16 +83,4 @@ public class StudentController {
     public Collection<Student> getLastFive(){
         return service.getLastFive();
     }
-
-    @GetMapping("names-start-with-a")
-    @Operation(summary = "Получение студентов с именем на А")
-    public Collection<String>getStudentsNamesStartWithA(){
-        return service.getStudentsNamesStartWithA();
-    }
-
-    @GetMapping("avg-age-with-stream")
-    @Operation(summary = "Получение среднего возраста студентов с использованием стрима")
-    public Double getAvgAgeWithStream(){
-        return service.getAvgAgeWithStream();
-    }
 }
